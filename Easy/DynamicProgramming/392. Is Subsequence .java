@@ -33,11 +33,11 @@ class Solution {
         int m = s.length();
         int n = t.length();
         int j = 0;
-        for(char c : t.toCharArray())
+        for(int i = 0; i<n && j <m; i++)
         {
-            if(s.charAt(j) == c)
+            if(s.charAt(j) == t.charAt(i))
                 j++;
         }
-        return j == m;
+        return (j == m) ? true : false;
     }
 }
