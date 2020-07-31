@@ -33,6 +33,21 @@ Note:
 1 <= n <= 100
 Two functions won't start or end at the same time.
 Functions will always log when they exit.
+ 1. Create a stack of pair ( function id : Timestamp) .
+          2. If you encountered "start" push the the pair Object  in stack .
+          3. Else pop the value from stack calculate  calculatedTs = current time stamp - pop timetsmap +1  for this function and add it to response array ;
+             3.1 if stack has more elemnts then update the time stamp of stack top element in responseArray  by -calculatedTs.
+             
+             // Dry run of above algorithm
+             int res =int[2];
+             logs = ["0:start:0","1:start:2","1:end:5","0:end:6"]
+               i=0  stack.push --> 0 =0
+               i=1  stack.push --> 1 =2
+               i=2   ts =  current - stack.pop() +1 --> 5 - 2 +1 = 4 
+                     res[1] += ts= 4;
+                     res[0] += -ts = -4;
+               i=3   ts =  current - stack.pop() +1 --> 6 - 0 +1 = 7
+                     res[0]+=7 = -4+7 =3;
  */
  
  class Solution {
