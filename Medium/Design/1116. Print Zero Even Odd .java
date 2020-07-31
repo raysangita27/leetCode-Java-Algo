@@ -25,6 +25,12 @@ Example 2:
 
 Input: n = 5
 Output: "0102030405"
+
+The logic is:
+
+Check if 0 is printed or not, if not, print 0 and notify others.
+In odd thread, if 0 is printed, print odd number, update state and notify others.
+In even thread, if 0 and odd are printed, print even number, reset state and notify others.
 */
 class ZeroEvenOdd {
     private int n;
