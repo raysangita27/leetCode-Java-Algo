@@ -52,3 +52,17 @@ class Solution {
         return sb.length() == 0 ? "0" : sb.toString();
     }
 }
+/*
+It is a classical greedy problem. In order to make the new number to be the smallest possible. We should put smaller digits before bigger digits. In this problem, we can't change the position of the digits, but we can remove some digits. So we need to remove bigger digits as possible as we can.
+we define a Deque to record the digits we want to keep.
+The idea is the same as insert sort, but we don't need to keep all numbers in the deque.
+we use a loop to add digits to the deque
+
+we add a digit into the deque when the deque is empty.
+when we add digit and deque is not empty, we need to compare it and the last element. if the digit is less than the last element, we remove the last element and compare it with the next element until the deque becomes empty or finds the element is less than or equal to the digit we add. When we remove the element from deque, the k minus 1. if k is zero, we can't remove the element.
+Add the digit into the deque.
+After the loop, we need to deal with two things:
+
+k != 0. we need to remove more digits from the deque. In this situation, the digits in deque are in ascending order. So we can just remove the last k element.
+the deque start with '0'. using a while loop to remove the zero.
+*/
