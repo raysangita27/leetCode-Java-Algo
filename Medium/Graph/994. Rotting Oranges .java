@@ -80,6 +80,11 @@ class Solution {
                 }
             }
         }
+     //Because in BFS's last iteration all oranges would have been rotten. So we need to exclude that.(count-1)
         return count_fresh == 0 ? count-1 : -1;
     }
 }
+
+//Time Complexity: O(row*col)
+//Space Complexity: O(row*col)
+
