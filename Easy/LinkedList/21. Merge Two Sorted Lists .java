@@ -37,3 +37,6 @@ class Solution {
         return result;
     }
 }
+// TimeComplexity - O(n);
+//n = Max(length of l1, length of l2)
+// SpaceComplexity - O(n) 
