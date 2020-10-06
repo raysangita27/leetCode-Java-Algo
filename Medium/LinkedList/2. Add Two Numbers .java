@@ -46,3 +46,5 @@ class Solution {
         return result.next;
     }
 }
+// TimeComplexity -> O(n) 
+// n = Max(length of l1, length of l2)
