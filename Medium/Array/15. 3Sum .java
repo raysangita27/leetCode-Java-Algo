@@ -24,8 +24,9 @@ class Solution {
         Arrays.sort(nums);
         for(int i = 0; i< nums.length-2; i++)
         {
+          //check if 2 numbers are same , skip processing
             if(i > 0 && nums[i] == nums[i-1])
-               continue;
+              continue;
             int j = i+1;
             int k = nums.length -1;
             while(j < k){
@@ -39,6 +40,7 @@ class Solution {
                         result.add(temp);
                     j++;
                     k--;
+                    //check if 2 numbers are same , skip the number to make the list uniue
                     while(j < k && nums[j] == nums[j-1])
                         j++;
                     while(j < k && nums[k] == nums[k+1])
@@ -54,3 +56,11 @@ class Solution {
             
     }}
 }
+/*
+Time Complexity : O(n^2)
+Sorting time : O(nlogn)
+TimeComplexity : O(n2)
+ */
+/*
+Space Complexity: from O(logn) to O(n), depending on the implementation of the sorting algorithm. For the purpose of complexity analysis, we ignore the memory required for the output.
+*/
