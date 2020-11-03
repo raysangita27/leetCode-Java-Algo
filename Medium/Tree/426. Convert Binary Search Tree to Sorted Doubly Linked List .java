@@ -93,3 +93,17 @@ class Solution {
 
     }
 }
+
+/*
+Step 1: Divide:
+We divide tree into three parts: left subtree, root node, right subtree.
+Convert left subtree into a circular doubly linked list as well as the right subtree.
+Be careful. You have to make the root node become a circular doubly linked list.
+
+Step 2: Conquer:
+Firstly, connect left circular doubly linked list with the root circular doubly linked list.
+Secondly, connect them with the right circular doubly linked list. 
+*/
+
+/*
+Time Complexity: O(N). Scanning the entire tree once
