@@ -52,3 +52,9 @@ class Solution {
         return s.substring(start, start + maxLength);
     }
 }
+
+/*
+Time Complexity : O(n2)
+Space Complexity : O(n2)
+
+*/
