@@ -110,3 +110,46 @@ l: 0 1 2 3 2 1 0
 r: 7 6 5 4 5 6 7
 The vector "left" is computing the left boundary. Take (i,j)=(1,3) for example. On current row 1, the left boundary is at j=2. However, because matrix[1][3] is 1, you need to consider the left boundary on previous row as well, which is 3. So the real left boundary at (1,3) is 3.
 */
+/**************************************Other Approach******************************************/
+class Solution {
+    public int maximalRectangle(char[][] matrix) {
+        int m = matrix.length;
+        if(m == 0)
+            return 0;
+        int n = matrix[0].length;
+        int maxArea = 0;
+        int[] height = new int[n];
+        for(int i = 0; i <m; i++)
+        {
+            for(int j = 0; j < n; j++)
+            {
+                if(matrix[i][j] == '1')
+                    height[j]++;
+                else
+                    height[j] = 0;
+                
+            }
+            maxArea = Math.max(maxArea, getArea(height));
+            
+        }
+        return maxArea;
+    }
+    public int getArea(int[] height)
+    {
+        int len = height.length;
+        int area = 0;
+        if(len == 0)
+            return 0;
+        for(int i = 0; i < len; i ++)
+        {
+            int left = i;
+            int right = i;
+            while(left >= 0 && height[left] >= height[i])
+                left--;
+            while(right < len && height[right] >= height[i])
+                right++;
+            area = Math.max(area, (right-1 -(left+1)+1)*height[i]);
+        }
+        return area;
+    }
+}
