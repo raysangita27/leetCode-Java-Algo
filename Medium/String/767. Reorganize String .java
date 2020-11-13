@@ -66,3 +66,11 @@ class Solution {
 }
 
 //TimeComplexity : O(n)
+/*
+No Sort O(N):
+
+count letter appearance and store in hash[i]
+find the letter with largest occurence.
+put the letter into even index numbe (0, 2, 4 ...) char array
+put the rest into the array
+*/
