@@ -1,4 +1,4 @@
-/*
+
 public boolean isOneEditDistance(String s, String t) {
     for (int i = 0; i < Math.min(s.length(), t.length()); i++) { 
     	if (s.charAt(i) != t.charAt(i)) {
@@ -13,7 +13,7 @@ public boolean isOneEditDistance(String s, String t) {
     //All previous chars are the same, the only possibility is deleting the end char in the longer one of s and t 
     return Math.abs(s.length() - t.length()) == 1;        
 }
-*/
+
 
 /*
 /*
@@ -29,3 +29,12 @@ public boolean isOneEditDistance(String s, String t) {
 	  s: a   b c
 	  t: a D b c
  */
+
+
+/*
+Complexity Analysis
+
+Time complexity : \mathcal{O}(N)O(N) in the worst case when string lengths are close enough abs(ns - nt) <= 1, where N is a number of characters in the longest string. \mathcal{O}(1)O(1) in the best case when abs(ns - nt) > 1.
+
+Space complexity : \mathcal{O}(N)O(N) because strings are immutable in Python and Java and to create substring costs \mathcal{O}(N)O(N) space.
+*/
