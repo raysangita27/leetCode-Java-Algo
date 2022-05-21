@@ -80,3 +80,60 @@ class BSTIterator {
  * int param_1 = obj.next();
  * boolean param_2 = obj.hasNext();
  */
+/* ===================================== avg O(1) time complexity implementation======================================*/
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class BSTIterator {
+
+    Stack<TreeNode> stk;
+    public BSTIterator(TreeNode root) {
+        stk = new Stack<>();
+        leftInsert(root);
+    }
+    public void leftInsert(TreeNode root)
+    {
+        if(root == null)
+            return;
+        while(root != null)
+        {
+            stk.push(root);
+            root = root.left;
+        }
+    }
+    public int next() {
+        TreeNode nextNode = stk.pop();
+        if(nextNode.right != null)
+            leftInsert(nextNode.right);
+        return nextNode.val;
+    }
+    
+    public boolean hasNext() {
+        return stk.size() > 0  ;
+    }
+}
+
+/**
+ * Your BSTIterator object will be instantiated and called as such:
+ * BSTIterator obj = new BSTIterator(root);
+ * int param_1 = obj.next();
+ * boolean param_2 = obj.hasNext();
+ */
+/*
+Space Complexity O(N)
+TimeComplexity O(1) for hasNext
+for next() -> O(1) avg case if right child is null. if rigt tree is skewed then it will be )(n)
+*/
