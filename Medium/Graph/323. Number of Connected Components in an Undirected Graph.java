@@ -71,3 +71,60 @@ class Solution {
 Time Complexity : O(E+V)
 Space Complexity: O(E+V)
 
+/*******************************************union fold**********************************************************/
+class Solution {
+    public int countComponents(int n, int[][] edges) {
+        int[] represnt = new int[n];
+        int[] rank = new int[n];
+        for(int i = 0; i < n; i++)
+        {
+            represnt[i] = i;
+            rank[i] = 1;
+        }
+        int compCount = n;
+        for(int[]e : edges)
+        {
+            compCount -= findComp(represnt, rank, e[0], e[1]);
+        }
+        return compCount;
+    }
+    public int findComp(int[] rep, int[] rank, int start, int end)
+    {
+        int startX = find(rep, start);
+        int endX = find(rep, end);
+        if(startX == endX)
+            return 0;
+        else{
+        if(rank[startX] < rank[endX])
+        {
+            rep[startX] = endX;
+            rank[endX] += rank[startX];
+        }
+        else{
+             rep[endX] = startX;
+            rank[startX] += rank[endX];    
+            }
+            return 1;
+        }
+            
+        
+    }
+    public int find(int[] rep, int index){
+        if(rep[index] == index)
+            return index;
+        return find(rep, rep[index]);
+    }
+}
+/*
+Here EE = Number of edges, VV = Number of vertices.
+
+Time complexity: O(E\cdotα(n))O(E⋅α(n)).
+
+Iterating over every edge requires O(E)O(E) operations, and for every operation, we are performing the combine method which is O(α(n))O(α(n)), where α(n) is the inverse Ackermann function.
+
+Space complexity: O(V)O(V).
+
+Storing the representative/immediate-parent of each vertex takes O(V)O(V) space. Furthermore, storing the size of components also takes O(V)O(V) space.
+
+*/
+
