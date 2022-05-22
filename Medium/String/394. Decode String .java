@@ -71,3 +71,40 @@ class Solution {
         return sb.reverse().toString();
     }
 }
+//****************************************************Recurssion**************************************************
+class Solution {
+   int i = 0;
+    public String decodeString(String s) {
+        StringBuilder result = new StringBuilder();
+        while(i < s.length() && s.charAt(i) != ']' )
+        {
+            if(!Character.isDigit(s.charAt(i)))
+                result.append(s.charAt(i++));
+            else
+            {
+                int k = 0;
+                while(i < s.length() && Character.isDigit(s.charAt(i)))
+                {
+                    k = 10*k + s.charAt(i) - '0';
+                    i++;
+                }
+                i++;
+                String decodeStr = decodeString(s);
+                i++;
+                while(k > 0)
+                {
+                    result.append(decodeStr);
+                    k--;
+                }
+                
+            }
+        }
+        return result.toString();
+            
+    }
+}
+
+/*
+Timecomplexity  O(maxK * n)
+space complexity O(n)
+*/
