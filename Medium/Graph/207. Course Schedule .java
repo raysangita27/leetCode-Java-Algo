@@ -63,3 +63,43 @@ class Solution {
             
     }
 }
+/****************************************Topological Sort Imp*******************************************/
+class Solution {
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        int[][] graph = new int[numCourses][numCourses] ;
+        int[] indegree = new int[numCourses];
+        for(int[] e : prerequisites)
+        {
+            int pre = e[1];
+            int next = e[0];
+            if(graph[pre][next] == 0)
+                   indegree[next]++;
+            graph[pre][next] = 1;
+        }
+        
+        Queue<Integer> q = new LinkedList<>();
+        for(int i = 0; i < numCourses; i++)
+        {
+            if(indegree[i] == 0)
+                q.add(i);
+        }
+        
+        int rCount = 0;
+        
+        while(!q.isEmpty())
+        {
+            int curCourse = q.remove();
+            rCount++;
+            for(int i = 0; i <numCourses; i++)
+            {
+                if(graph[curCourse][i] != 0)
+                {
+                    indegree[i] --;
+                    if(indegree[i] == 0)
+                        q.add(i);
+                }
+            }
+        }
+        return rCount == numCourses;
+    }
+}
