@@ -80,3 +80,7 @@ public int getMaximumGold(int[][] grid)
         return  Math.max(Math.max(Math.max(left,right),up),down) + temp; // Return the max sum of gold collected in a single iteration.
         
     }
+
+/*
+Time complexity : O(3^k)
+*/
