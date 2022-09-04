@@ -50,3 +50,21 @@ class Solution {
        
     }
 }
+/*******************************************
+
+class Solution {
+    public int[] smallerNumbersThanCurrent(int[] nums) {
+    if(nums == null || nums.length <= 1)
+        return nums;
+    List<Integer> list = new ArrayList<>();
+    for(int n : nums)
+        list.add(n);
+    Collections.sort(list);
+    for(int i = 0; i < nums.length; i++)
+    {
+        nums[i] = list.indexOf(nums[i]);
+    }
+    return nums;
+
+}
+}
