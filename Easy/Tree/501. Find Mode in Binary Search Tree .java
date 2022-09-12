@@ -86,3 +86,61 @@ class Solution {
         inOrderNodes(root.right, map);
     }
 }
+//*************************************TimeComplexity O(n) Space complexity O(1)*************************
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    Integer prev = null;
+    int count = 1;
+    int max = 0;
+    public int[] findMode(TreeNode root) {
+        if(root== null)
+            return new int[]{};
+        ArrayList<Integer> list = new ArrayList<>();
+        inorder(root, list);
+        int[] ans = new int[list.size()];
+        int i = 0;
+        for(int n : list)
+            ans[i++] = n;
+        return ans;
+    }
+    public void inorder(TreeNode root, ArrayList<Integer> list)
+    {
+        if(root == null)
+            return;
+        inorder(root.left, list);
+        if(prev != null)
+        {
+            if(root.val == prev)
+                count ++;
+            else
+                count = 1;
+        }
+        prev = root.val;
+        if(count > max)
+        {
+            max = count;
+            list.clear();
+            list.add(root.val);
+        }
+        else if(count == max)
+        {
+            list.add(root.val);
+        }
+        inorder(root.right, list);
+    }
+}
+
