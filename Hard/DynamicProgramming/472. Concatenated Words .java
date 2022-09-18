@@ -61,3 +61,67 @@ class Solution {
         return dp[word.length()];
     }
 }
+
+/********************************************************Trie Imp***********************************************************/
+class Solution {
+    List<String> result;
+    TrieNode root ;
+    public List<String> findAllConcatenatedWordsInADict(String[] words) {
+        result = new ArrayList<String>();
+        if(words == null || words.length == 0)
+            return result;
+        root = new TrieNode();
+        insert(words);
+        for(String word : words)
+        {
+            if(dfs(word, 0, 0))
+                result.add(word);
+        }
+        return result;
+    }
+    public boolean dfs(String word, int index, int count)
+    {
+        if(index == word.length())
+            return count >= 2;
+        
+        TrieNode node = root;
+        for(int i = index; i < word.length(); i++)
+        {
+            if(node.link[word.charAt(i)-'a'] == null)
+                return false;
+            node = node.link[word.charAt(i)-'a'];
+            if(node.isEnd)
+            {
+                if(dfs(word, i+1, count+1))
+                    return true;
+            }
+        }
+        return false;  
+    }
+    
+    public void insert(String[] words)
+    {
+        
+        for(String word : words)
+        {
+            TrieNode node = root;
+            for(char c : word.toCharArray())
+            {
+                if(node.link[c-'a'] == null)
+                    node.link[c - 'a'] = new TrieNode();
+                node = node.link[c - 'a'];
+            }
+            node.isEnd = true;
+        }
+    }
+}
+
+class TrieNode {
+    TrieNode[] link;
+    boolean isEnd;
+    TrieNode()
+    {
+        link = new TrieNode[26];
+        isEnd = false;
+    }
+}
