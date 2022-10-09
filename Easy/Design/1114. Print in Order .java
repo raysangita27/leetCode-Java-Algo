@@ -52,3 +52,39 @@ class Foo {
         printThird.run();
     }
 }
+
+/*****************************************Semaphore*****************************************/
+using System.Threading;
+public class Foo {
+
+    Semaphore first = new Semaphore(1, 1);
+    Semaphore second = new Semaphore(0, 1);
+    Semaphore third = new Semaphore(0, 1);
+    public Foo() {
+
+    }
+
+    public void First(Action printFirst) {
+        
+        // printFirst() outputs "first". Do not change or remove this line.
+        first.WaitOne();
+        printFirst();
+        second.Release();
+    }
+
+    public void Second(Action printSecond) {
+        
+        // printSecond() outputs "second". Do not change or remove this line.
+        second.WaitOne();
+        printSecond();
+        third.Release();
+    }
+
+    public void Third(Action printThird) {
+        
+        // printThird() outputs "third". Do not change or remove this line.
+        third.WaitOne();
+        printThird();
+        third.Release();
+    }
+}
