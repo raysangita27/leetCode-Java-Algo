@@ -31,6 +31,10 @@ grid[i][j] is either 0 or 1.
 There are exactly two islands in grid.
 */
 
+/*
+Use DFS to mark the first island to 2, and continue traverse the 2D array to add every '1'(the second island) into Queue, then BFS to find the shortest path needed.
+*/
+
 class Solution {
     public int shortestBridge(int[][] A) {
         int m = A.length, n = A[0].length;
