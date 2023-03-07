@@ -41,32 +41,26 @@ s and t contain lower-case English letters only.
 
 class Solution {
     public int minSteps(String s, String t) {
-        if(s.length() != t.length())
-            return 0;
-        int n = s.length();
-        HashMap<Character, Integer> map = new HashMap<>();
-        for(int i = 0; i<n; i++)
+        HashMap<Character, Integer> counter = new HashMap<>();
+        for(char c : s.toCharArray())
         {
-            if(map.containsKey(s.charAt(i)))
-                map.put(s.charAt(i), map.get(s.charAt(i))+1 );
-            else
-                map.put(s.charAt(i),1 );
-        }
-        for(char c : t.toCharArray())
+            counter.put(c, counter.getOrDefault(c, 0)+1);
+        }    
+
+        int steps = 0;
+
+        for(int i = 0; i < t.length(); i++)
         {
-            if(map.containsKey(c) )
+            char c = t.charAt(i);
+            if(counter.containsKey(c))
             {
-                int val = map.get(c);
-                //val = val-1;
-                if(val == 0 || val-1 == 0)
-                    map.remove(c);
-                else
-                    map.put(c,val-1);
+                counter.put(c, counter.get(c)-1);
+                if(counter.get(c) == 0)
+                    counter.remove(c);
             }
+            else //if character is not present in the string
+                steps++;
         }
-        int count = 0;
-        for(var key : map.keySet() )
-            count += map.get(key);
-        return count;
+        return steps;
     }
 }
