@@ -36,29 +36,25 @@ S only consists of '(' and ')' characters.
 */
 
 class Solution {
-    public int minAddToMakeValid(String S) {
-        int len = S.length();
-        if(len == 0)
-            return 0; 
-        int count = 0;
-        Stack<Character> stk = new Stack<>();
-        for(char c : S.toCharArray())
-        {
-            if(c == ')')
-            {
-                if(!stk.isEmpty())
-                    stk.pop();
-                else
-                    count++;
-            }
-            else
-                stk.push(c);
-        }
-        while(!stk.isEmpty())
-        {
-            count++;
-            stk.pop();
-        }
-        return count;
-    }   
+        public int minAddToMakeValid(String s) {
+	if(s == null || s.length() == 0)
+		return 0;
+	int len = s.length();
+	int count = 0;
+	Stack<Character> stk = new Stack<>();
+	for(int i = 0; i < s.length(); i++)
+	{
+			if(s.charAt(i) == ')')
+			{
+				if(!stk.isEmpty() && stk.peek() == '(')
+					stk.pop();
+				else
+					stk.push(s.charAt(i));
+			}
+			else
+				stk.push(s.charAt(i));
+	}
+	return stk.size();
+}
+}
 }
