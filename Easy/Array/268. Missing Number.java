@@ -30,3 +30,14 @@ class Solution {
         return x1 ^ x2;
     }
 }
+/**********************************using sum of n consecutive numbers**********************************/
+public int missingNumber(int[] nums) {
+    
+        if(nums == null)
+            return 0;
+        int len = nums.length;
+        int sum = (len*(len+1))/2;
+        for(int n : nums)
+            sum -= n;
+        return sum;
+}
