@@ -78,3 +78,45 @@ Functions will always log when they exit.
     }
 }
  
+/***************************************stack with wrapper class************************/
+class Solution {
+    public int[] exclusiveTime(int n, List<String> logs) {
+        if(logs == null || logs.size() == 0)
+            return new int[]{};
+        Stack<Log> stk = new Stack<>();
+        int[] result = new int[n];
+        for(String logItem : logs)
+        {
+            Log l = new Log(logItem);
+            if(l.isStart){
+                stk.push(l); // if there is start item , pushing it to stack
+            }
+            else
+            {
+                Log topItem = stk.pop();
+                result[topItem.id] += l.time - topItem.time +1; // if we see end the top task processing is done and we added that processing time
+                if(!stk.isEmpty())
+                   result[stk.peek().id] -= l.time - topItem.time +1; // removing current time from previous id as this is consumed to process current task.
+
+            }
+        }
+        return result;
+        
+
+    }
+}
+
+class Log 
+{
+    int id;
+    int time;
+    boolean isStart;
+    public Log(String log)
+    {
+        String[] items = log.split(":");
+
+        id = Integer.valueOf(items[0]);
+        time = Integer.valueOf(items[2]);
+        isStart = items[1].equals("start") ? true : false;
+    }
+}
