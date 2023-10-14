@@ -74,3 +74,62 @@ find the letter with largest occurence.
 put the letter into even index numbe (0, 2, 4 ...) char array
 put the rest into the array
 */
+
+/*********************using priority Queue*********************
+    class Solution {
+    public String reorganizeString(String s) {
+        if(s == null || s.length() == 0)
+            return s;
+        int[] freq = new int[26];
+        int maxFreq = 0;
+        
+        for(char c : s.toCharArray())
+        {
+            freq[c-'a'] ++;
+            maxFreq = Math.max(maxFreq, freq[c-'a']);
+        }
+        int len = s.length();   
+        if(maxFreq > (len+1)/2)
+            return "";
+        
+        PriorityQueue<Pair<Character, Integer>> pQ = new PriorityQueue<>(len,new Comparator<Pair<Character, Integer>>(){
+            public int compare(Pair<Character, Integer> o1, Pair<Character, Integer> o2)
+            {
+                return o2.getValue()-o1.getValue();
+            }
+        });
+        for(int i = 0; i < 26; i++)
+        {
+            if(freq[i] > 0)
+            {
+                pQ.add(new Pair<Character, Integer>((char)(i+'a'), freq[i]));
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        while(!pQ.isEmpty())
+        {
+            var cur = pQ.remove();
+            int count = cur.getValue();
+            if(sb.isEmpty() || sb.charAt(sb.length()-1) != cur.getKey()){
+                sb.append(cur.getKey());
+                count--;
+                if(count > 0)
+                    pQ.add(new Pair<>(cur.getKey(), count));
+            }
+            else
+            {
+                if(pQ.isEmpty())
+                    return "";
+                var second = pQ.remove();
+                sb.append(second.getKey());
+                
+                if((second.getValue()-1) > 0)
+                    pQ.add(new Pair<>(second.getKey(), (second.getValue()-1)));
+                
+                pQ.add(cur);
+
+            }
+        }
+        return sb.toString();
+    }
+}
