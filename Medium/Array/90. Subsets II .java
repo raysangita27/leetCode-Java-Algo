@@ -39,3 +39,43 @@ class Solution {
         return result;
     }
 }
+
+/*************using backtrack*******************/
+
+class Solution {
+    int i ;
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        if(nums == null || nums.length == 0)
+            return result;
+        Arrays.sort(nums);
+        for( i = 0; i <= nums.length; i++)
+        {
+            
+            backtrack(nums, 0, new ArrayList<Integer>(), result);
+        }   
+        return result;
+    }
+    public void backtrack(int[] nums, int index, List<Integer> ans, List<List<Integer>> result)
+    {
+        if(ans.size() == i)
+        {
+            //if(!result.contains(ans))
+            result.add(new ArrayList<>(ans));
+            return ;
+        }
+        for(int j = index; j < nums.length; j++)
+        {
+            if(j != index && nums[j] == nums[j-1])
+                continue;
+
+            ans.add(nums[j]);
+            backtrack(nums, j+1, ans, result);
+            ans.remove(ans.size()-1);
+
+        }
+
+    }
+}
+
+//TC : (n * 2^n)
