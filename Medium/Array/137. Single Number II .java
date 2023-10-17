@@ -26,3 +26,25 @@ class Solution {
         return freqOne;
     }
 }
+
+
+/********bit manipulation*************
+
+    class Solution {
+    public int singleNumber(int[] nums) {
+        if(nums == null || nums.length == 0)
+            return -1;
+        int target = 0;
+        for(int index = 0; index < 32; index++)
+        {
+            int bitSum = 0;
+            for(int num : nums)
+            {
+                bitSum += (num >> index) & 1;
+            }
+            int targetbit = bitSum % 3;
+            target = targetbit << index | target;
+        }    
+        return target;
+    }
+}
