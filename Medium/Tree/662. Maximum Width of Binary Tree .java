@@ -105,3 +105,52 @@ class Solution {
     }
     
 }
+
+/******************************using queue*******************************/
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int widthOfBinaryTree(TreeNode root) {
+        if(root == null)
+            return 0;
+        Queue<Pair<TreeNode, Integer>> queue = new LinkedList<>();
+        queue.add(new Pair<>(root, 1)); 
+        int maxWidth = 0;  
+        while(!queue.isEmpty())
+        {
+            var head = queue.peek();
+            int size = queue.size();
+            Pair<TreeNode, Integer> current = null ;
+            for(int i = 0; i < size; i++)
+            {
+                current = queue.remove();
+                TreeNode curNode = current.getKey();
+                int freq = current.getValue();
+                if(curNode.left != null)
+                {
+                    queue.add(new Pair<>(curNode.left, 2*freq));
+                }
+                if(curNode.right != null)
+                {
+                    queue.add(new Pair<>(curNode.right, 2*freq + 1));
+                }
+            }
+            maxWidth = Math.max(maxWidth, current.getValue() - head.getValue() +1);
+        }
+        return maxWidth;
+    }
+}
