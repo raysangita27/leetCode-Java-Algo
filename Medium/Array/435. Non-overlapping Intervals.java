@@ -30,25 +30,23 @@ intervals[i].length == 2
 
 class Solution {
     public int eraseOverlapIntervals(int[][] intervals) {
-        if(intervals == null || intervals.length == 0)
+       if (intervals == null || intervals.length == 0){
             return 0;
-        Arrays.sort(intervals , new Comparator<int[]>(){
-            public int compare(int[] o1, int[] o2)
-            {
-                return o1[1] - o2[1];
-            }
-        });
-        int[] current = intervals[0];
-        int ans = 1;
-        for(int i = 1; i < intervals.length; i++)
-        {
-            if(current[1] <= intervals[i][0])
-            {
-                current = intervals[i];
-                ans++;
+        }
+        
+        Arrays.sort(intervals, (i1, i2) -> i1[1] - i2[1]); 
+        
+        int[] prev = null; 
+        int cnt = 0;
+        
+        for (int[] cur : intervals){
+            if (prev != null && cur[0] < prev[1]){ 
+                cnt++;
+            }else{
+                prev = cur;
             }
         }
-        return intervals.length -ans;
+        return cnt;
     }
 }
 
