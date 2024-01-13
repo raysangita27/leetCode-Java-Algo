@@ -64,3 +64,25 @@ class Solution {
         return steps;
     }
 }
+/****************************/
+
+class Solution {
+    public int minSteps(String s, String t) {
+        if(s == null || s.length() == 0)
+            return t.length();
+
+        int[] counter = new int[26];
+        for(int i = 0; i < s.length(); i++)
+        {
+            counter[s.charAt(i) - 'a']++;
+            counter[t.charAt(i) - 'a']--;
+        }
+        int maxStep = 0;
+         // Adding the difference where string t has more instances than s.
+        // Ignoring where t has fewer instances as they are redundant and
+        // can be covered by the first case.
+        for(int i = 0; i < 26; i++)
+            maxStep += Math.max(0, counter[i]);
+        return maxStep;
+    }
+}
