@@ -30,3 +30,41 @@ class Solution {
         return result;
     }
 }
+
+/************************without stack*******************************/
+
+class Solution {
+    public String reverseWords(String s) {
+        if(s == null || s.length() == 0)
+            return s;
+        
+        int start = 0;
+        int end = 0;
+        char[] words = s.toCharArray();
+        while(end < s.length())
+        {
+            while(end < s.length() && !Character.isWhitespace(words[end]))
+            {
+                end++;
+            }
+            reverse(words, start, end-1);
+            end++;
+            start = end;
+
+        }
+        reverse(words, start, end-1);
+        return new String(words);
+
+    }
+    public void reverse(char[] word, int s, int e)
+    {
+        while(s < e )
+        {
+            char c = word[s];
+            word[s] =  word[e];
+            word[e] = c;
+            s++;
+            e--;
+        }
+    }
+}
