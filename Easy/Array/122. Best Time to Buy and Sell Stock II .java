@@ -45,3 +45,18 @@ class Solution {
         return maxAmt;
     }
 }
+
+/*********************/
+
+public int maxProfit(int[] prices) {
+        int maxProfit = 0, buy = prices[0];
+        for (int i = 0; i < prices.length; i++) {
+            if (buy > prices[i]) {
+                buy = prices[i];
+            } else {
+                maxProfit += prices[i] - buy; //sell the stock
+                buy = prices[i]; // buy immediately on the same day
+            }
+        }
+        return maxProfit;
+    }
