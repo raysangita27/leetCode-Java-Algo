@@ -50,6 +50,8 @@ class Solution {
         {
             if(i != ind && nums[i-1] == nums[i])
                 continue;
+            if(target - nums[i] < 0)
+              break;
             ans.add(nums[i]);
             generate(nums, ans, target- nums[i], i+1);
             ans.remove(ans.size()-1);
