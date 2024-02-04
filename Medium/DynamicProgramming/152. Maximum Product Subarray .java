@@ -31,3 +31,27 @@ class Solution {
         return max;    
     }
 }
+
+/***************************************/
+class Solution {
+    public int maxProduct(int[] nums) {
+        int product=Integer.MIN_VALUE;
+        int lp=1;
+        for(int i=0;i<nums.length;i++){
+            lp*=nums[i];
+            product=Math.max(lp,product); //calculating product from left side subarray.
+            if(lp==0){
+                lp=1;
+            }
+        }
+        int rp=1;
+        for(int i=nums.length-1;i>=0;i--){
+            rp*=nums[i];
+            product=Math.max(rp,product); //calculating product from right side subarray.
+            if(rp==0){
+                rp=1;
+            }
+        }
+        return product;
+    }
+}
