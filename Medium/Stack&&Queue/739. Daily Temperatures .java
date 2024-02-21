@@ -33,3 +33,28 @@ class Solution {
         return ans;
     }
 }
+
+
+/*******************O(1) space complexity without additional stack*******************/
+
+    class Solution {
+    public int[] dailyTemperatures(int[] nums) {
+        int n = nums.length;
+        int[] res = new int[n];
+        int highest = nums[n-1];
+        for (int i = n-2; i >= 0; i--) {
+            int temp = nums[i];
+            if (temp >= highest) highest = temp;
+            else {
+                // starting form next index.
+                int r = i+1;
+                while (nums[r] <= temp) {
+                    // if next index temperature is less than current one we will set index from result of next index(which is nearest warmer )
+                    r = r + res[r];
+                }
+                res[i] = r - i;
+            }
+        }
+        return res;
+    }
+}
