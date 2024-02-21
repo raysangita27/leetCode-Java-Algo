@@ -60,3 +60,28 @@ class Solution {
         return result;
     }
 }
+
+/******************************** alternate approach ***************************************/
+
+class Solution {
+    public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+        if(nums1 == null || nums1.length == 0)
+            return nums1;
+
+        HashMap<Integer, Integer> ele_next = new HashMap<>();
+        Stack<Integer> stk = new Stack<>();
+        for(int i = nums2.length-1; i>= 0; i-- )
+        {
+            while(!stk.isEmpty() && stk.peek() <= nums2[i])
+                stk.pop();
+            if(stk.isEmpty())
+                ele_next.put(nums2[i], -1);
+            else
+                ele_next.put(nums2[i], stk.peek());
+            stk.push(nums2[i]);
+        }    
+        for(int i = 0; i < nums1.length; i++)
+            nums1[i] = ele_next.get(nums1[i]);
+        return nums1;
+    }
+}
