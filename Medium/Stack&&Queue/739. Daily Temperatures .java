@@ -7,26 +7,29 @@ Note: The length of temperatures will be in the range [1, 30000]. Each temperatu
 */
 
 class Solution {
-    public int[] dailyTemperatures(int[] T) {
-        int len = T.length;
-        if(len == 0)
-            return new int[]{};
-        int [] res = new int[len];
-        Stack<int[]> stk = new Stack<>();
-        for(int i = 0; i< len ; i++)
+    public int[] dailyTemperatures(int[] temperatures) {
+        if(temperatures == null || temperatures.length == 0)
+            return temperatures;
+
+        int len = temperatures.length;
+        int[] ans = new int[len];
+        Stack<Integer> stk = new Stack<>();
+        for(int i = len-1; i >= 0; i--)
         {
-            if(stk.isEmpty() || T[i] <= stk.peek()[0])
-                stk.push(new int[]{T[i],i});
+            //if stack contains less temparature than current one removing that
+            while(!stk.isEmpty() && temperatures[stk.peek()] <= temperatures[i])
+                stk.pop();
+            //if stack is empty , no warmer value present setting 0
+            if(stk.isEmpty())
+                ans[i] = 0;
+            // else peek of the stack index contains nearest warm value.
             else
             {
-                while(!stk.isEmpty() && stk.peek()[0] < T[i])
-                {
-                    int[] temp = stk.pop();
-                    res[temp[1]] = i- temp[1];
-                }
-                stk.push(new int[]{T[i],i});
+                int index = stk.peek();
+                ans[i] = index-i;
             }
-        }
-        return res;
+            stk.push(i);
+        }    
+        return ans;
     }
 }
