@@ -70,3 +70,91 @@ class LRUCache {
  * int param_1 = obj.get(key);
  * obj.put(key,value);
  */
+
+
+/********************LinkedList Implementation***************************/
+class LRUCache {
+    HashMap<Integer, Node> map;
+    int maxCapacity;
+    Node queue;
+    Node head;
+    Node tail;
+    public LRUCache(int capacity) {
+        this.maxCapacity = capacity;
+        map = new HashMap<>();
+        queue = new Node(0, 0);
+        head = new Node(-1, -1);
+        tail = new Node(-1, -1);
+        head.right = tail;
+        tail.left = head;
+
+    }
+    
+    public int get(int key) {
+        if(!map.containsKey(key))
+            return -1;
+        Node item = map.get(key);
+        remove(item);
+        add(item);
+        return item.value;
+    }
+    
+    public void put(int key, int value) {
+        if(map.containsKey(key))
+        {
+            Node item = map.get(key);
+            item.value = value;
+            remove(item);
+            add(item);
+        }
+        else
+        {
+            Node item1 = new Node(key, value);
+            if(map.size() == maxCapacity)
+            {
+                Node itemToBeRemoved = head.right;
+                remove(itemToBeRemoved);
+                map.remove(itemToBeRemoved.key);
+            }
+            map.put(key, item1);
+            add(item1);
+            
+        }
+
+    }
+    private void remove(Node item)
+    {
+        item.left.right = item.right;
+        item.right.left = item.left;
+    }
+    private void add(Node item)
+    {
+        Node prevNode = tail.left;
+        prevNode.right = item;
+        item.left = prevNode;
+        item.right = tail;
+        tail.left = item;
+    }
+}
+
+class Node
+{
+    int value;
+    int key;
+    Node left;
+    Node right;
+    Node(int key, int value)
+    {
+        this.value = value;
+        left = right = null;
+        this.key = key;
+    }
+}
+
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.get(key);
+ * obj.put(key,value);
+ */
