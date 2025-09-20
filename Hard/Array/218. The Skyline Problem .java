@@ -38,9 +38,15 @@ class Solution {
     for(int[] h:height) {
         if(h[1] < 0) {
             pq.offer(-h[1]);
-        } else {
-            pq.remove(h[1]);
-        }
+        } else{
+                heightCountMap.put(h[1], heightCountMap.getOrDefault(h[1], 0) +1);
+            }
+            // Ensure the top of the heap is valid (i.e., remove heights marked for deletion)
+            while (!pQ.isEmpty() && heightCountMap.getOrDefault(pQ.peek(), 0) > 0) {
+                int heightToRemove = pQ.peek();
+                heightCountMap.put(heightToRemove, heightCountMap.get(heightToRemove) - 1);
+                pQ.poll(); // Remove the invalid height
+            }
         if(!pq.isEmpty()){
         int cur = pq.peek();
             if(cur != prev)
