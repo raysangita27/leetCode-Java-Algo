@@ -61,3 +61,36 @@ class Solution {
         
     }
 }
+
+/*=======================================================================================================================================================*/
+/* cyclic sort algo */
+
+class Solution {
+    public int firstMissingPositive(int[] nums) {
+        if(nums == null || nums.length == 0)
+            return 1;
+        int len = nums.length;
+        int i = 0;
+        while(i < len)
+        {
+            int targetIndex = nums[i] -1;
+            if( targetIndex >= 0 && targetIndex < len && nums[targetIndex] != nums[i])
+            {
+                int temp = nums[i];
+                nums[i] = nums[targetIndex];
+                nums[targetIndex] = temp;
+            }
+            else
+            {
+                i++;
+            }
+        }
+        for( i = 0; i < len; i++)
+        {
+            if(i != nums[i]-1)
+                return i+1;
+        }
+        return i+1;
+        
+    }
+}
